@@ -1,0 +1,327 @@
+
+$bg: whiteSmoke;
+$bg-hover: #1F5BF3;
+$color:black;
+$border-color:#333;
+
+
+$bg-dark: #111;
+$bg-hover-dark: rgb(144, 143, 143);
+$color-dark:#999;
+$border-color-dark:#333;
+
+
+.app.dark {
+  
+
+
+  background-color: $bg-dark;
+  color: $color-dark;
+
+  .navbar {
+   
+    background-color: $bg-dark;
+    
+    .icon {
+      color: $color-dark;
+    }
+  }
+
+  .chartGrid {
+    stroke: $color-dark;
+  }
+
+  .table {
+    background-color: $bg-dark;
+
+    .tableCell {
+      color: $color-dark;
+    }
+  }
+
+  .navbar {
+    color: $color-dark;
+    border-color: $border-color-dark;
+
+    .search {
+      border-color: $border-color-dark;
+    }
+  }
+ 
+  .sidebar {
+    border-color: $border-color-dark;
+    color: $color-dark;
+    background-color: $bg-dark;
+    
+    .top {
+      background-color: $bg-dark;
+      border-bottom: 1px solid  $border-color-dark;
+     
+      .logo {
+        color: $color-dark;
+        
+      }
+    }
+   
+    ul {
+      li {
+        display: flex;
+        align-items: center;
+        padding: 5px;
+        cursor: pointer;
+        .icon {
+          font-size: 18px;
+          color: $color-dark;
+        }
+
+        span{
+            font-size: 13px;
+            font-weight: 600;
+            color: $color-dark;
+            margin-left: 10px;
+        }
+
+        &:hover {
+          background-color:$bg-hover-dark;
+          .icon {
+            color: $bg-dark;
+          }
+          span{
+              color: $bg-dark;
+          }
+        } 
+      }
+    }
+  }
+
+  .datatable {
+    .link{
+      color: #999;
+      border: 1px solid #999;
+    }
+    .datagrid {
+      color: gray;
+      border: none;
+      .css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root{
+        color:gray;
+      }
+      .viewButton,
+      .deleteButton,
+      .cellWithStatus {
+        color: gray;
+        border-color: #999;
+      }
+      
+    }
+  }
+  
+
+  input{
+      background-color:$color-dark ;
+      color: $bg-dark;
+      border-color: $border-color-dark;
+  }
+  .btn-add{
+    color: $color-dark;
+    background-color: $color;
+    box-shadow: 1px 2px 4px $border-color-dark ;
+    &:hover{
+     box-shadow: 1px 2px 4px $color-dark;
+     
+    }
+   }
+
+   .btn{
+    color: $color-dark;
+    background-color: $bg-dark;
+    box-shadow: 1px 2px 4px $border-color-dark ;
+    &:hover{
+     box-shadow: 1px 2px 4px $color-dark;
+     background-color: $bg-hover-dark;
+     color: $bg-dark;
+    }
+    
+    &:disabled{
+     background-color: $bg-hover-dark;
+     color: $bg-dark;
+    }
+  }
+
+  .delete{
+     box-shadow: 0 2px 4px $bg-dark;
+     background-color: $color-dark;
+    
+     &:before  {
+      background-color: $bg-dark;
+      }
+
+      &:after {
+        background-color: $bg-dark;
+        }
+     
+  }
+  .css-78c6dr-MuiToolbar-root-MuiTablePagination-toolbar {
+    color: $color-dark;
+}
+
+.css-78c6dr-MuiToolbar-root-MuiTablePagination-toolbar .MuiTablePagination-actions {
+ 
+  button{
+    color: $color-dark;
+  }
+}
+
+}
+
+
+.app {
+  background-color: $bg;
+  color: $color;
+
+  .chartGrid {
+    stroke: $color;
+  }
+
+  .table {
+    .tableCell {
+      color: $color;
+    }
+  }
+
+  .navbar {
+    color: $color;
+    background-color: #1F5BF3;
+    .search {
+      border-color: $color;
+    }
+    .icon {
+    
+      color: $bg;
+    }
+  }
+
+  .sidebar {
+    background-color: $bg;
+    color: $color;
+ 
+    .top {
+      background-color: #1F5BF3;
+      
+      .logo {
+        color: $bg;
+        
+      }
+    }
+    ul {
+      li {
+        display: flex;
+        align-items: center;
+        padding: 5px;
+        cursor: pointer;
+
+        &:hover {
+          background-color:$bg-hover; 
+        }
+
+        .icon {
+          font-size: 18px;
+          color: $color;
+        }
+
+        span{
+            font-size: 13px;
+            font-weight: 600;
+            color:$color;
+            margin-left: 10px;
+        }
+      }
+    }
+
+    .items {
+     
+
+   
+       
+
+        .icon {
+          color: $bg;
+          font-size: 20px;
+        }
+      
+    }
+  }
+
+  .datatable {
+    .link{ 
+      color: $color;
+      border: 1px solid  $color;
+    }
+    .datagrid {
+      color: $color;
+      border: none;
+    }
+  }
+
+    input{
+      background-color:$bg ;
+     
+      color: $color;
+      border-color: $border-color;
+  }
+
+  .btn-add{
+    color: $color;
+    background-color: $bg;
+    box-shadow: 1px 2px 4px $border-color ;
+    &:hover{
+     box-shadow: 1px 2px 4px $color;
+     
+    }
+   }
+
+   .btn{
+    color: $color;
+    background-color: $bg;
+    box-shadow: 1px 2px 4px $border-color ;
+    &:hover{
+     box-shadow: 1px 2px 4px $color;
+     background-color: $bg-hover;
+    }
+    
+    &:disabled{
+     background-color: $bg-hover;
+      
+    }
+  }
+  .delete{
+    box-shadow: 0 2px 4px $color;
+    
+    background-color: $bg;
+   
+    &:before  {
+     background-color: $color;
+     }
+
+     &:after {
+       background-color: $color;
+       }
+    
+ }
+ .right{
+  
+  .slick-prev,.slick-next {
+   
+    &:before{
+     color:rgb(124, 122, 122);
+    }
+   
+}
+
+ }
+
+
+
+ 
+  
+}
+
