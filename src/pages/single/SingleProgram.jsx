@@ -1,7 +1,7 @@
 import "./singleProgram.scss"
 import Sidebar from "../../components/sidebar/Sidebar"
 import Navbar from "../../components/navbar/Navbar"
-import TasksDatatable from "../../components/datatable/tasksDatatable"
+import TasksDatatable from "../../components/datatable/Tasks"
 import { useParams } from "react-router-dom"
 
 const List = () => {
