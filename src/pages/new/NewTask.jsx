@@ -1,12 +1,13 @@
 import "./new.scss";
+import React, { useState, useEffect } from "react";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
-import {useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import { useParams } from "react-router-dom";
 import {
     doc,
     setDoc,
+    collection, getDocs
 } from "firebase/firestore";
 import { db } from "../../firebase";
 import { useNavigate } from "react-router-dom";
@@ -14,6 +15,8 @@ import { useNavigate } from "react-router-dom";
 const New = ({ inputs, title }) => {
 
     const { programId } = useParams();
+    const [assignedUser, setAssignedUser] = useState(null);
+    const [priority, setType] = useState(null); 
     const [per, setPer] = useState(null);
     const [data, setData] = useState({
         id: uuidv4(),
@@ -22,10 +25,32 @@ const New = ({ inputs, title }) => {
         heureDebutReelle: '',
         heureFinReelle: '',
         duree: 1,
-        commentaire: ''
+        commentaire: '',
+        description:'',
+        heureDateDebutPrevu:'',
+        heureDateFinPrevu:'',
+        priority:'Haute',
+        status:'à faire',
+        assignedUser: ''
     });
+    const [users, setUsers] = useState([]);
+    const [status, setStatus] = useState(null); 
 
-    const [status, setStatus] = useState(null)
+    useEffect(() => {
+        const fetchUsers = async () => {
+          const usersCollection = collection(db, "USERDATA");
+          const usersSnapshot = await getDocs(usersCollection);
+          const userList = usersSnapshot.docs.map((doc) => ({
+            id: doc.id,
+            name: doc.data().name,
+          }));
+          setUsers(userList);
+        };
+    
+        fetchUsers();
+      }, []);
+    
+
     const navigate = useNavigate()
 
     const handleInput = (e) => {
@@ -41,6 +66,9 @@ const New = ({ inputs, title }) => {
 
     const handleAdd = async (e) => {
         e.preventDefault();
+
+        console.log(data)
+        
         setStatus("Uploading Data ...");
 
         setPer(50);
@@ -57,7 +85,11 @@ const New = ({ inputs, title }) => {
         setTimeout(() => {
             setStatus(null);
         }, 4000);
+        
     };
+
+    
+    
     return (
         <div className="new">
             <Sidebar />
@@ -84,11 +116,52 @@ const New = ({ inputs, title }) => {
                                     />
                                 </div>
                             ))}
+                                 <div className="GroupRadio">
+                                    <h5>Priority</h5>
+                                    <div className="formSelect">
+                                    <select
+                                        id="priority"
+                                        name="priority"
+                                        value={data.priority}
+                                        onChange={(e)=>
+                                        setData({...data, priority:e.target.value})}
+                                        required
+                                    >
+                                        <option selected value="Haute">Haute</option>
+                                        <option value="Moyenne">Moyenne</option>
+                                        <option value="Bas">Bas</option>
+                                    </select>
+                                    </div>
+                                </div>
+                                
+                            <div className="GroupRadio">
+                            <h5>Assigned User</h5>
+                            <div className="formSelect">
+                            <select
+                                id="assignedUser"
+                                name="assignedUser"
+                                value={data.assignedUser}
+                                onChange={(e) => 
+                                    setData({...data,assignedUser:e.target.value})
+                                }
+                                required
+                            >
+                                <option value="" disabled>
+                                Select User
+                                </option>
+                                {users.map((user) => (
+                                <option key={user.id} value={user.id}>
+                                    {user.name}
+                                </option>
+                                ))}
+                            </select>
+                            </div>
+                        </div>
                             <button className="btn" disabled={per !== null && per < 100} type="submit">
                                 ADD
                             </button>
                         </form>
-                        <div style={{ display: (status ? "flex" : "none") }} className="status bottom"><h5>{status}</h5></div>
+                        <div style={{display: (status?"flex":"none") }}  className="status-message bottom"><h5>{status}</h5></div>   
                     </div>
                 </div>
             </div>

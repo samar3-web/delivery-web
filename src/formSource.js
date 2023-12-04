@@ -62,9 +62,9 @@ export const userInputs = [
   export const taskInputs = [
     {
       id: "name",
-      label: "Name",
+      label: "Libellé",
       type: "text",
-      placeholder: "Name",
+      placeholder: "Libellé",
     },
     {
       id: "heureDebutReelle",
@@ -89,6 +89,15 @@ export const userInputs = [
       label: "Comment",
       type: "text",
       placeholder: "Comment",
-    }
+    },
+    {
+      id: "description",
+      label: "description",
+      type: "text",
+      placeholder: "description",
+    },
+  
+   
+   
   ];
   

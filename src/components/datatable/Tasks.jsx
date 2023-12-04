@@ -40,7 +40,7 @@ const Datatable = ({programId}) => {
   }, []);
 
 
-  const status = ["à faire","en cours","faite" ] ;
+  const status = ["à faire","en cours","faite", "reporté" ] ;
 
 
   return (

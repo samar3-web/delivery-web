@@ -204,8 +204,8 @@ const New = ({ inputs, title }) => {
           </div>
           
         </div>
-        <div style={{display: (status?"flex":"none") }}  className="status bottom"><h5>{status}</h5></div>
-      </div>
+
+        <div style={{display: (status?"flex":"none") }}  className="status-message bottom"><h5>{status}</h5></div>      </div>
      
     </div>
   );
