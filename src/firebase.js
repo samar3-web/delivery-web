@@ -1,5 +1,6 @@
 
 import { initializeApp } from "firebase/app";
+import { getMessaging, getToken, onMessage, send } from "firebase/messaging";
 
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
@@ -32,6 +33,8 @@ export const db = getFirestore(app);
 export const auth = getAuth();
 export const storage = getStorage(app);
 
+
+
 export const  sendNotificationsToUser= async (userEmail,title, displayValue)=>  {
   // Get the tokens for the friend
   const tokens = await getUserTokens(userEmail);
@@ -41,6 +44,7 @@ export const  sendNotificationsToUser= async (userEmail,title, displayValue)=>  
     await sendNotifications(fcmServerKey,token, title, displayValue);
   }
 }
+
 
 
 const  getUserTokens= async(userEmail)=> {
@@ -97,3 +101,43 @@ const sendNotifications=(fcmServerKey,userFcmToken, title, body)=> {
   };
 }
 
+
+
+export const updateTaskStatus = async (taskId, newStatus, userEmail) => {
+  const tasksRef = db.collection("tasksCollection");
+
+  // Update task status
+  await tasksRef.doc(taskId).update({ status: newStatus });
+
+  // Notify the user about the status update
+  await sendNotificationsToUser(userEmail, "Task Status Updated", `Your task status is now: ${newStatus}`);
+
+  // Show a local notification on the user's device
+  showLocalNotification("Task Status Updated", `Your task status is now: ${newStatus}`);
+}
+
+
+// Function to show a local notification on the user's device
+const showLocalNotification = async (title, body) => {
+  const messaging = getMessaging();
+
+  try {
+    const currentToken = await getToken(messaging);
+
+    if (currentToken) {
+      // Request permission to show notifications (if not already granted)
+      const permission = await Notification.requestPermission();
+
+      if (permission === "granted") {
+        // Show the notification
+        const notification = new Notification(title, { body: body });
+      } else {
+        console.error("Notification permission denied");
+      }
+    } else {
+      console.error("No registration token available. Request permission to generate one.");
+    }
+  } catch (error) {
+    console.error("Error getting registration token:", error);
+  }
+}

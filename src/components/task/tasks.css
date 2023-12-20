@@ -8,8 +8,8 @@
 
 
 :root {
-  --color-bg: #1f1f38;
-  --color-bg-variant: #2c2c6c;
+  --color-bg: #6a6a9429;
+  --color-bg-variant: #6a6a9429;
   --color-primary: #4db5ff;
   --color-primary-variant: rgba(77,181,255,.4);
   --color-white: #fff;
@@ -88,7 +88,7 @@
   padding: auto;
   align-items: center;
   justify-content: center;
-  background-color: var(--color-bg-variant);
+  background-color: #1F5BF3;
   border-radius: 10px;
   height:80%;
 }

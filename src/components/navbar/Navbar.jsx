@@ -2,6 +2,7 @@ import "./navbar.scss";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import LanguageOutlinedIcon from "@mui/icons-material/LanguageOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
+import LightModeIcon from '@mui/icons-material/LightMode';
 import FullscreenExitOutlinedIcon from "@mui/icons-material/FullscreenExitOutlined";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
@@ -25,14 +26,13 @@ import { db } from "../../firebase";
 
 
 const Navbar = () => {
-  const { dispatch } = useContext(DarkModeContext);
+  const { dispatch,darkMode } = useContext(DarkModeContext);
   const navigate = useNavigate()
   const { currentUser } = useContext(AuthContext);
   const [data, setData] = useState({});
   const [notifications,setNotifications] = useState(0)
 
  
-  
   useEffect(() => {
 
 
@@ -54,10 +54,10 @@ const Navbar = () => {
         let list = [];
         try {
          
-          const querySnapshot = await getDocs(collection(db, "HouseCollection"));
+          const querySnapshot = await getDocs(collection(db, "NotificationCollection"));
           querySnapshot.forEach((doc) => {
-            let authorized= doc.data().authorized;
-            !authorized && list.push({ id: doc.id });
+            let isVue= doc.data().vue;
+            !isVue && list.push({ id: doc.id });
           });
           setNotifications(list.length);
         } catch (err) {
@@ -85,16 +85,25 @@ const Navbar = () => {
             
           </div>
           <div className="item">
-            <DarkModeOutlinedIcon
+          { darkMode ? (
+            <LightModeIcon
+            style={{color:"blue"}}
+            className="icon"
+            onClick={() => dispatch({ type: "TOGGLE" })}
+          />
+            ) : (
+              <DarkModeOutlinedIcon
               className="icon"
               onClick={() => dispatch({ type: "TOGGLE" })}
             />
+          )
+          }
           </div>
           <div className="item">
             
           </div>
-          {
-            /*
+          
+            
           <div className="item">
           <NotificationsNoneOutlinedIcon className="icon" />
             {
@@ -112,8 +121,8 @@ const Navbar = () => {
             
           </div>
 
-          */
-          }
+          
+          
           <div className="item">
          
           </div>
