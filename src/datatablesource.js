@@ -46,10 +46,9 @@ export const tasksColumns = [
   
   { field: "id",headerName: "ID",width: 70,},
   { field: "name", headerName: "NAME", width: 100 },
-  { field: "heureDebutReelle",headerName: "START HOUR",width: 130,},
-  { field: "heureFinReelle", headerName: "END HOUR", width: 130 },
+  { field: "heureDateDebutPrevu",headerName: "START HOUR",width: 130,},
+  { field: "heureDateFinPrevu", headerName: "END HOUR", width: 130 },
   { field: "commentaire",headerName: "COMMENT",width: 230,},
-  
  
 ];
 
@@ -76,8 +75,17 @@ export const tacheColumns = [
     }
   },
 ];
-
-
+const formatDate = (timestamp) => {
+  const date = new Date(timestamp.seconds * 1000 + timestamp.nanoseconds / 1e6);
+  const formattedDate = new Intl.DateTimeFormat('fr-FR').format(date);
+  return formattedDate;
+};
+export const notificationColumns = [
+  { field: "status", headerName: "Status", width: 150 },
+  {field: 'timestamp',headerName: 'Timestamp',width: 130, renderCell: (params) => formatDate(params.value)},
+  { field: "taskName", headerName: "Task Name", width: 130 },
+  { field: "taskDescription", headerName: "Task Description", width: 230 },
+];
 
 
 
@@ -85,4 +93,3 @@ export const tacheColumns = [
 export const adminColumns = [
   { field: "email", headerName: "Email", width: 200 },
 ];
-

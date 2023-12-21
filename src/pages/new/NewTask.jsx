@@ -29,7 +29,7 @@ const New = ({ inputs, title }) => {
         description:'',
         heureDateDebutPrevu:'',
         heureDateFinPrevu:'',
-        priority:'Haute',
+        priority:'haute',
         status:'à faire',
         assignedUser: ''
     });
@@ -127,9 +127,9 @@ const New = ({ inputs, title }) => {
                                         setData({...data, priority:e.target.value})}
                                         required
                                     >
-                                        <option selected value="Haute">Haute</option>
-                                        <option value="Moyenne">Moyenne</option>
-                                        <option value="Bas">Bas</option>
+                                        <option selected value="haute">Haute</option>
+                                        <option value="moyenne">Moyenne</option>
+                                        <option value="bas">Bas</option>
                                     </select>
                                     </div>
                                 </div>

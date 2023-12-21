@@ -67,16 +67,16 @@ export const userInputs = [
       placeholder: "Libellé",
     },
     {
-      id: "heureDebutReelle",
-      label: "Real Start Hour",
+      id: "heureDateDebutPrevu",
+      label: " Start Hour",
       type: "datetime-local",
-      placeholder: "Real Start Hour",
+      placeholder: "prevu Start Hour",
     },
     {
-      id: "heureFinReelle",
-      label: "Real End Hour",
+      id: "heureDateFinPrevu",
+      label: " End Hour",
       type: "datetime-local",
-      placeholder: "Real End Hour",
+      placeholder: "prevu End Hour",
     },
     {
       id: "duree",

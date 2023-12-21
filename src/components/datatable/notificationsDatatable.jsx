@@ -1,6 +1,6 @@
 import "./datatable.scss";
 import { DataGrid } from "@mui/x-data-grid";
-import { tacheColumns } from "../../datatablesource";
+import { notificationColumns } from "../../datatablesource";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
@@ -21,40 +21,37 @@ const Datatable = () => {
   
   const [data, setData] = useState([]);
 
+  const fetchData = async () => {
+    let list = [];
+    try {
+     
+      const querySnapshot = await getDocs(collection(db, "NotificationCollection"));
+      querySnapshot.forEach((doc) => {
+        let vued= doc.data().vued;
+        !vued && list.push({ id: doc.id, ...doc.data() });
+      });
+      setData(list);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   useEffect(() => {
-      const fetchData = async () => {
-        let list = [];
-        try {
-         
-          const querySnapshot = await getDocs(collection(db, "HouseCollection"));
-          querySnapshot.forEach((doc) => {
-            let authorized= doc.data().authorized;
-            !authorized && list.push({ id: doc.id, ...doc.data() });
-          });
-          setData(list);
-        } catch (err) {
-          console.log(err);
-        }
-      }
+      
      fetchData();
 
     
   }, []);
 
-  const navigate = useNavigate()
  
-  const handleAuthorise =  async (email,city,productId) => {
+  const handleVued =  async (notificationId) => {
     
   //authorization 
-  await updateDoc(doc(db, "HouseCollection", productId), {
-    authorized: true
+  await updateDoc(doc(db, "NotificationCollection", notificationId), {
+    vued: true
   });
 
-
-  const message = "Your house from '"+city+"' is now authorized and ready for rent"
-  sendNotificationsToUser(email, "House Authorization",message)
-    
-    navigate(`/products`)
+    fetchData();
   };
 
   const actionColumn = [
@@ -67,12 +64,8 @@ const Datatable = () => {
           <div className="cellAction">
             
               <div className="viewButton"
-                    onClick={() => handleAuthorise(params.row.ownerEmail,params.row.city, params.row.id)} >
-                    Done
-              </div>
-              <div className="viewButton"
-                    onClick={() => handleAuthorise(params.row.ownerEmail,params.row.city, params.row.id)} >
-                    Modify
+                    onClick={() => handleVued(params.row.id)} >
+                    Confirmation
               </div>
           </div>
         );
@@ -80,22 +73,23 @@ const Datatable = () => {
     },
   ];
   return (
-    <div className="datatable">
+    <div className="datatable" style={{ height: 400, width: '100%' }}>
       <div className="datatableTitle">
-        Notifications
+        Notifications 
       
       </div>
+      
 
       <DataGrid
         className="datagrid"
         rows={data}
-        columns={tacheColumns.concat(actionColumn)}
+        columns={notificationColumns.concat(actionColumn)}
         pageSize={9}
         rowsPerPageOptions={[9]}
         checkboxSelection
     
         getRowClassName={(params) =>
-          params.row.authorized == false ? 'row' : null
+          params.row.vued == false ? 'row' : null
         }
        
 
