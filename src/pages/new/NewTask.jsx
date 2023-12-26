@@ -147,7 +147,7 @@ const New = ({ inputs, title }) => {
                       Haute
                     </option>
                     <option value="moyenne">Moyenne</option>
-                    <option value="bas">Bas</option>
+                    <option value="basse">Basse</option>
                   </select>
                 </div>
               </div>
