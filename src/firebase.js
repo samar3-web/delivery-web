@@ -25,7 +25,7 @@ const firebaseConfig = {
 };
 
 //notification key 
-const fcmServerKey ="AAAA9tNp-9U:APA91bGjRknS__MsOIdAIDjfPWAYaqNRLWvG9cRgxYnG4MQyHtZ-P0JWjiB33xwLOSX5aRsd9NDO1vUw31VxesiJouzpIhAu-hs7WY1a3qdJnua-yV55rKLnRSBAJvimHS45UXvSbbL6";
+const fcmServerKey ="czKrOJU2RBqFcW4IO4682A:APA91bExY8JCk9y0ENMhW6znsPiUV9huqgicFI1kn7sSywGSojonNS8zT9UK9VEM3jxkLlTgN4k15uOJkzK0cPJKSsjgvITyxNAhFjuttnT3vpz3hhHcfpVeQVi9-k5FyJ5Nnfq0i3H6";
 
 
 const app = initializeApp(firebaseConfig);

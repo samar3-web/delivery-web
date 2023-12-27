@@ -10,10 +10,9 @@ import {
   collection,
   getDocs
 } from "firebase/firestore";
-import { db } from "../../firebase";
+import { db ,sendNotificationsToUser} from "../../firebase";
 import { useNavigate } from "react-router-dom";
-import BingMapsReact from "bingmaps-react";
-import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import { MapContainer,  TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import LeafletGeocoder from "./LeafletGeocoder";
@@ -21,6 +20,8 @@ import LeafletRoutingMachine from "./LeafletRoutingMachine";
 
 import "leaflet-control-geocoder/dist/Control.Geocoder.css";
 import "leaflet-control-geocoder/dist/Control.Geocoder.js";
+
+
 const New = ({ inputs, title }) => {
   const { programId } = useParams();
   const [assignedUser, setAssignedUser] = useState(null);
@@ -83,10 +84,17 @@ const New = ({ inputs, title }) => {
     setData({ ...data, latitude, longitude });
   };
 
+
+
+  // Function to get FCM tokens for a user
+ 
+  
+
   const handleAdd = async (e) => {
     e.preventDefault();
 
     console.log(data);
+      
 
     setStatus("Uploading Data ...");
 
@@ -95,7 +103,31 @@ const New = ({ inputs, title }) => {
     try {
       await setDoc(doc(db, "tasksCollection", data.id), data);
       setStatus("Task Added Successfully");
+
+  // Send notifications to user tokens
+  const serverTimeStamp = new Date();
+
+  const dateFormatted = serverTimeStamp.toLocaleString('en-US', {
+                                                        weekday: 'short',
+                                                        day: 'numeric',
+                                                        month: 'numeric',
+                                                        year: 'numeric',
+                                                        hour: 'numeric',
+                                                        minute: 'numeric',
+                                                      }
+);
+      
+  const message = "Your Task  '"+data.name+"' is addded now, "+dateFormatted;
+  console.log("Task Assigned User: ", data.assignedUser);
+
+  sendNotificationsToUser(data.ownerEmail,"Updating House from admin",message)
+
+
+
+
       setTimeout(() => navigate(`/programs/${programId}`), 3000);
+
+
     } catch (err) {
       console.log(err);
       setStatus(err.message);
@@ -147,7 +179,7 @@ const New = ({ inputs, title }) => {
                       Haute
                     </option>
                     <option value="moyenne">Moyenne</option>
-                    <option value="basse">Basse</option>
+                    <option value="base">Base</option>
                   </select>
                 </div>
               </div>
@@ -175,21 +207,7 @@ const New = ({ inputs, title }) => {
                   </select>
                 </div>
               </div>
-                    {/* 
-              <BingMapsReact
-                bingMapsKey="AlwLTKgevIemLkhFY8wA2oDQwpxY8SBBAR8a5dXymXDFKTmfGWKkXnJGQkGzXUMM"
-                height="500px"
-                mapOptions={{
-                  navigationBarMode: "square"
-                }}
-                width="500px"
-                viewOptions={{
-                  center: { latitude: data.latitude, longitude: data.longitude },
-                  mapTypeId: "grayscale"
-                }}
-                pushPins={pushPins}
-                onClick={handleMapClick} // Handle map click
-              />*/}
+              
          <MapContainer center={position} zoom={13} >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
