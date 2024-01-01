@@ -25,7 +25,7 @@ const firebaseConfig = {
 };
 
 //notification key 
-const fcmServerKey ="czKrOJU2RBqFcW4IO4682A:APA91bExY8JCk9y0ENMhW6znsPiUV9huqgicFI1kn7sSywGSojonNS8zT9UK9VEM3jxkLlTgN4k15uOJkzK0cPJKSsjgvITyxNAhFjuttnT3vpz3hhHcfpVeQVi9-k5FyJ5Nnfq0i3H6";
+const fcmServerKey ="AAAAPE61Lok:APA91bHkoeupj4e5myEjl51BiNEErAJwQVACrwgqH-6E0WX7KYJdS1f3Zj1qTHCN0WtxBWu-BFxtKOa-dUDkkwiR3l22loyZSlsoqkSjWmRSf3ZTdjxuCdmJ9_Pgz6X5aXFmTZfmcpM2";
 
 
 const app = initializeApp(firebaseConfig);
@@ -96,7 +96,7 @@ const sendNotifications=(fcmServerKey,userFcmToken, title, body)=> {
     if (xhr.status === 200) {
     } else {
       // Error!
-      console.Error("Error sending notification: " + xhr.status);
+      console.error("Error sending notification: " + xhr.status);
     }
   };
 }

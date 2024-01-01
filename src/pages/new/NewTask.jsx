@@ -103,28 +103,23 @@ const New = ({ inputs, title }) => {
     try {
       await setDoc(doc(db, "tasksCollection", data.id), data);
       setStatus("Task Added Successfully");
+ // Send notifications to user tokens
+ const serverTimeStamp = new Date();
 
-  // Send notifications to user tokens
-  const serverTimeStamp = new Date();
-
-  const dateFormatted = serverTimeStamp.toLocaleString('en-US', {
-                                                        weekday: 'short',
-                                                        day: 'numeric',
-                                                        month: 'numeric',
-                                                        year: 'numeric',
-                                                        hour: 'numeric',
-                                                        minute: 'numeric',
-                                                      }
+ const dateFormatted = serverTimeStamp.toLocaleString('en-US', {
+                                                       weekday: 'short',
+                                                       day: 'numeric',
+                                                       month: 'numeric',
+                                                       year: 'numeric',
+                                                       hour: 'numeric',
+                                                       minute: 'numeric',
+                                                     }
 );
-      
-  const message = "Your Task  '"+data.name+"' is addded now, "+dateFormatted;
-  console.log("Task Assigned User: ", data.assignedUser);
-
-  sendNotificationsToUser(data.ownerEmail,"Updating House from admin",message)
-
-
-
-
+     
+ const message = "Your Task  '"+data.name+"' is addded now, "+dateFormatted;
+ console.log("Task Assigned User: ", data.assignedUser);
+console.log('data',data);
+ sendNotificationsToUser(data.assignedUser,"Adding Task from admin",message)
       setTimeout(() => navigate(`/programs/${programId}`), 3000);
 
 
