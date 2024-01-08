@@ -102,6 +102,19 @@ const New = ({ inputs, title }) => {
 
     try {
       await setDoc(doc(db, "tasksCollection", data.id), data);
+       // Create a document in "InAppNotificationCollection"
+       const notificationData = {
+        id: uuidv4(),
+        taskId: data.id,
+        taskName: data.name,
+        assignedUser: data.assignedUser,
+        creationDate: new Date(),
+        seen: "false",
+        // Add other fields as needed
+      };
+
+      await setDoc(doc(db, "InAppNotificationCollection", notificationData.id), notificationData);
+
       setStatus("Task Added Successfully");
  // Send notifications to user tokens
  const serverTimeStamp = new Date();
