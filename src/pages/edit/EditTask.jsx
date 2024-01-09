@@ -2,11 +2,14 @@ import "./edit.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import { useEffect, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import { useParams } from "react-router-dom";
 import {
   doc,
   getDoc,
   updateDoc,
+  setDoc,
+  collection,
   serverTimestamp,
 } from "firebase/firestore";
 
@@ -93,7 +96,19 @@ const Edit = ({  title }) => {
                                                               minute: 'numeric',
                                                             }
   );
+// Create a document in "InAppNotificationCollection"
+const notificationData = {
+  id: uuidv4(),
+  taskId: data.id,
+  taskName: data.name,
+  assignedUser: data.assignedUser,
+  creationDate: new Date(),
+  seen: "false",
+  type: "edit",
+  // Add other fields as needed
+};
 
+await setDoc(doc(db, "InAppNotificationCollection", notificationData.id), notificationData);
        // Send notifications to user tokens
         
       
@@ -103,6 +118,9 @@ const Edit = ({  title }) => {
 
   
         setStatus("Task Editing Successfully");
+ console.log("Task Assigned User: ", data.assignedUser);
+console.log('data',data);
+ sendNotificationsToUser(data.assignedUser,"Edditing Task by admin",message)
     
         //setTimeout(() => navigate(`/products/${productId}`), 3000);
     } catch (err) {
@@ -130,16 +148,16 @@ const Edit = ({  title }) => {
           placeholder: "Name",
         },
         {
-          id: "heureDebutReelle",
-          label: "Real Start Hour",
-          value: data.heureDebutReelle,
+          id: "heureDateDebutPrevu",
+          label: "Starting Date & Hour",
+          value: data.heureDateDebutPrevu,
           type: "datetime-local",
           placeholder: "Real Start Hour",
         },
         {
-          id: "heureFinReelle",
-          label: "Real End Hour",
-          value: data.heureFinReelle,
+          id: "heureDateFinPrevu",
+          label: "Ending Date & Hour",
+          value: data.heureDateFinPrevu,
           type: "datetime-local",
           placeholder: "Real End Hour",
         },
@@ -151,12 +169,21 @@ const Edit = ({  title }) => {
           placeholder: "Duration",
         },
         {
-          id: "commentaire",
-          label: "Comment",
-          value: data.commentaire,
+          id: "description",
+          label: "Description",
+          value: data.description,
           type: "text",
-          placeholder: "Comment",
-        }
+          placeholder: "Description",
+        },
+        {
+          id: "priority",
+          label: "Priority",
+          value: data.priority,
+          type: "select",
+          placeholder: "Priority",
+          options: ["haute", "moyenne", "basse"], 
+        },
+
       ];
  
 
@@ -178,6 +205,21 @@ const Edit = ({  title }) => {
                 {inputs.map((input) => (
                   <div className="formInput" key={input.id}>
                     <label>{input.label}</label>
+                    {input.type === "select" ? (
+            <select
+              id={input.id}
+              value={input.value}
+              onChange={handleInput}
+              required
+            >
+              <option value="" disabled>Select Priority</option>
+              {input.options.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+          ) : (
                     <input
                       id={input.id}
                       type={input.type}
@@ -186,6 +228,7 @@ const Edit = ({  title }) => {
                       onChange={handleInput}
                       required
                     />
+                    )}
                   </div>
                 
                 ))}

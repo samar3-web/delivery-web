@@ -110,6 +110,7 @@ const New = ({ inputs, title }) => {
         assignedUser: data.assignedUser,
         creationDate: new Date(),
         seen: "false",
+        type: "add",
         // Add other fields as needed
       };
 
@@ -129,7 +130,7 @@ const New = ({ inputs, title }) => {
                                                      }
 );
      
- const message = "Your Task  '"+data.name+"' is addded now, "+dateFormatted;
+ const message = "Your Task  '"+data.name+"' is added now, "+dateFormatted;
  console.log("Task Assigned User: ", data.assignedUser);
 console.log('data',data);
  sendNotificationsToUser(data.assignedUser,"Adding Task from admin",message)
@@ -187,7 +188,7 @@ console.log('data',data);
                       Haute
                     </option>
                     <option value="moyenne">Moyenne</option>
-                    <option value="base">Base</option>
+                    <option value="basse">Basse</option>
                   </select>
                 </div>
               </div>
