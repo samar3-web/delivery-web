@@ -49,54 +49,16 @@ const Datatable = () => {
  
 
   const handleDelete = async (id) => {
-    
-    
-          //var admin = require("firebase-admin");
-          //const { initializeApp } = require('firebase-admin/app');
-          /*
-          
-          admin.initializeApp({
-            credential: admin.credential.cert(process.env.SERVICE_ACCOUNT_KEY),
-            databaseURL: process.env.DTABASE_URL
-          });
-          
-          admin.auth().getUserByEmail(id)
-          .then((userRecord) => {
-          // Supprimez l'utilisateur
-          admin.auth().deleteUser(userRecord.uid)
-            .then(() => {
-              console.log(`L'utilisateur ${id} a été supprimé avec succès.`);
-            })
-            .catch((error) => {
-              console.error(`Une erreur s'est produite lors de la suppression de l'utilisateur ${id}:`, error);
-            });
-        })
-        .catch((error) => {
-          console.error(`Une erreur s'est produite lors de la récupération de l'utilisateur ${id}:`, error);
-        });
-      */
-    
     try {
-     
-     
 
-     // Delete user from Firebase Authentication
-     // await admin.auth().deleteUser(id);
+    // supprimer l'utilisateur de la base de données Firestore
+    await deleteDoc(doc(db, "USERDATA", id));
 
-    
-            
-
-
-      
-      // supprimer l'utilisateur de la base de données Firestore
-      await deleteDoc(doc(db, "USERDATA", id));
-      
-      setData(data.filter((item) => item.id !== id));
+    setData(data.filter((item) => item.id !== id));
     } catch (err) {
-      console.log(err);
+    console.log(err);
     }
-  }
-
+}
  
 
   const actionColumn = [

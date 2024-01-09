@@ -38,7 +38,7 @@ const Edit = ({ title }) => {
                 setData({ ...docSnap.data() });
 
             } else {
-                alert("data not found for this product's id")
+                alert("data not found for this task's id")
                 navigate(`/programs/${programId}`)
             }
         }

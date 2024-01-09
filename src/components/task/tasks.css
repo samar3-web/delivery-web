@@ -147,7 +147,7 @@
 }
 .task-kanban .edit:hover{
   padding: 2.5px;
-  background-color: red;
+  background-color: rgb(222, 207, 207);
 }
 
 .task-kanban .delete {
@@ -352,4 +352,10 @@
   .heading p {
     font-size: 1.5rem;
   }
+  /* Responsive Design */
+@media (max-width: 600px) {
+  .container {
+    width: var(--container-width-sm);
+  }
+}
 }
